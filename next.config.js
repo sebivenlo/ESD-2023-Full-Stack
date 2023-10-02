@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   // Required for hot reloading inside a docker container
   webpackDevMiddleware:
     process.env.NODE_ENV !== "production"

@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import Provider from "@/components/provider";
 import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
   title: "ESDE Web Dev Workshop",
@@ -8,12 +10,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: PropsWithChildren) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <Provider>
+        <body>{children}</body>
+      </Provider>
     </html>
   );
 }
