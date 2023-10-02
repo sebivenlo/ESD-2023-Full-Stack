@@ -13,7 +13,6 @@ services:
       - DATABASE_URL=postgres://your_username:your_password@esde-workshop-db:5432/your_db_name
     volumes:
       - .:/usr/src/app
-      - .contentlayer:/usr/src/app/.contentlayer
       - /usr/src/app/node_modules
       - /usr/src/app/.next
     depends_on:
