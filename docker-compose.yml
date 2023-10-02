@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  esde-workshop-next:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: esde-workshop-next
+    restart: unless-stopped
+    ports:
+      - '3040:3000'
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://your_username:your_password@esde-workshop-db:5432/your_db_name
+    volumes:
+      - .:/usr/src/app
+      - .contentlayer:/usr/src/app/.contentlayer
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    depends_on:
+      - esde-workshop-db
+
+  esde-workshop-db:
+    image: postgres:latest
+    container_name: esde-workshop-db
+    restart: unless-stopped
+    ports:
+      - '5440:5432'
+    environment:
+      - POSTGRES_USER=your_username
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=your_db_name
+    volumes:
+      - esde-workshop-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  esde-workshop-postgres-data:
