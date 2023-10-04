@@ -1,10 +1,10 @@
-# ESD template
+# ESDE NextJS Workshop
 
-Please make sure all artifacts are in this GitHub repository.  
-That includes:
+This repository contains the starter code for the ESDE NextJS Workshop.
 
-- Code
-- Workshop materials
-- Presentation (if applicable)
-- References.
-- Docker (compose) file (if applicable)
+## Getting Started
+
+1. Clone this repository
+2. Build and start the docker containers `docker-compose up -d`
+3. Apply all db schema changes `docker-compose exec esde-workshop-next npm run db:push`
+4. (Optional) Attach to the container to see logs `docker-compose logs -f esde-workshop-next`
