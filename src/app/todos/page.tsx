@@ -1,4 +1,4 @@
-import TodoList from "@/components/todo_component";
+import TodoList from "@/components/todo_list/todo_list";
 import { serverApi } from "@/utils/server_api";
 
 async function fetchToDos() {

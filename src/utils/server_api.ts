@@ -1,4 +1,4 @@
-import { appRouter } from "@/server/api/root";
+import { appRouter } from "@/server/api/root_router";
 import { createInnerTRPCContext } from "@/server/api/trpc";
 
 /**
@@ -12,6 +12,6 @@ export const serverApi = async () => {
   return appRouter.createCaller(
     createInnerTRPCContext({
       session: null,
-    })
+    }),
   );
 };

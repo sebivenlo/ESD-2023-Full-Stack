@@ -1,6 +1,8 @@
 "use client";
 
+import AddTodo from "@/components/todo_list/add_todo";
 import { RouterOutputs, api } from "@/utils/api";
+import TodoItem from "./todo_item";
 
 type TodoProps = {
   todos: RouterOutputs["todos"]["getTodos"];
@@ -18,11 +20,12 @@ export default function TodoList({ todos }: TodoProps) {
   if (query.isError) return <div>Error: {query.error.message}</div>;
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <ul>
+    <div className="flex flex-col gap-4 p-8">
+      <h1 className="text-3xl">Todo List</h1>
+      <AddTodo />
+      <ul className="flex flex-col gap-1">
         {query.data.map((todo) => (
-          <li key={todo.id}>{todo.description}</li>
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </div>

@@ -1,13 +1,7 @@
-import {
-  boolean,
-  pgTable,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const todos = pgTable("todo", {
-  id: varchar("id", { length: 255 }).notNull().primaryKey(),
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
   description: text("description"),
   isComplete: boolean("is_complete").notNull().default(false),
   createdAt: timestamp("created_at").defaultNow().notNull(),
