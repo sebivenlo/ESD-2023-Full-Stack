@@ -7,7 +7,13 @@
     "db:push": "dotenv drizzle-kit push:pg",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "docker:up": "docker-compose up -d",
+    "docker:rebuild": "docker-compose stop && docker-compose up -d --build",
+    "docker:restart": "docker-compose restart esde-workshop-next",
+    "docker:restart-all": "docker-compose restart",
+    "docker:logs": "docker-compose logs -f --tail \"30\" esde-workshop-next",
+    "docker:exec": "docker-compose exec esde-workshop-next"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.32.6",
