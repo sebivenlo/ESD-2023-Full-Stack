@@ -1,10 +1,9 @@
 import TRPCClientExample from "@/components/trpc_client_example";
-import { serverApi } from "@/utils/server_api";
+import { serverApi } from "@/utils/trpc/server";
 import Link from "next/link";
 
 async function fetchDataOnServer() {
-  const api = await serverApi();
-  return api.example.hello({
+  return serverApi.example.hello.query({
     text: "from trpc. This is server side rendering!",
   });
 }

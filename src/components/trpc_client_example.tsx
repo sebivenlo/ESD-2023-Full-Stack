@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "@/utils/api";
+import { api } from "@/utils/trpc/client";
 
 export default function TRPCClientExample() {
   const query = api.example.hello.useQuery({

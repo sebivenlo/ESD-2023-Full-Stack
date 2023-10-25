@@ -1,8 +1,9 @@
 "use client";
 
 import AddTodo from "@/components/todo_list/add_todo";
-import { RouterOutputs, api } from "@/utils/api";
 import TodoItem from "./todo_item";
+import { api } from "@/utils/trpc/client";
+import { RouterOutputs } from "@/utils/trpc/shared";
 
 type TodoProps = {
   todos: RouterOutputs["todos"]["getTodos"];

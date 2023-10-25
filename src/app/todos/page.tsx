@@ -1,9 +1,8 @@
 import TodoList from "@/components/todo_list/todo_list";
-import { serverApi } from "@/utils/server_api";
+import { serverApi } from "@/utils/trpc/server";
 
 async function fetchToDos() {
-  const api = await serverApi();
-  return api.todos.getTodos();
+  return serverApi.todos.getTodos.query();
 }
 
 export default async function Todos() {

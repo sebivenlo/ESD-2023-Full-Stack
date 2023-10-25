@@ -1,17 +1,9 @@
-/**
- * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
- * 1. You want to modify request context (see Part 1).
- * 2. You want to create a new middleware or type of procedure (see Part 3).
- *
- * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
- * need to use are documented accordingly near the end.
- */
-
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "@/server/db";
+import { NextRequest } from "next/server";
 
 /**
  * 1. CONTEXT
@@ -22,22 +14,37 @@ import { db } from "@/server/db";
  */
 
 interface CreateContextOptions {
-  session: {
-    userId: string;
-    // ...other session data
-  } | null;
+  headers: Headers;
 }
 
-export const createInnerTRPCContext = (opts: CreateContextOptions) => {
+/**
+ * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
+ * it from here.
+ *
+ * Examples of things you may need it for:
+ * - testing, so we don't have to mock Next.js' req/res
+ * - tRPC's `createSSGHelpers`, where we don't have req/res
+ *
+ * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
+ */
+export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
   return {
-    session: opts.session,
+    headers: opts.headers,
     db,
   };
 };
 
-export const createTRPCContext = async (req: Request) => {
-  return createInnerTRPCContext({
-    session: null,
+/**
+ * This is the actual context you will use in your router. It will be used to process every request
+ * that goes through your tRPC endpoint.
+ *
+ * @see https://trpc.io/docs/context
+ */
+export const createTRPCContext = async (opts: { req: NextRequest }) => {
+  // Fetch stuff that depends on the request
+
+  return await createInnerTRPCContext({
+    headers: opts.req.headers,
   });
 };
 

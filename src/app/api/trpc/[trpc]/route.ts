@@ -1,21 +1,15 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
-import { appRouter } from "@/server/api/root_router";
-import { createTRPCContext } from "@/server/api/trpc";
+import { type NextRequest } from "next/server";
 
-/**
- * Handler function for tRPC requests.
- *
- * @param req - The request object.
- * @returns A promise that resolves to the response object.
- */
-const handler = (req: Request) =>
+import { createTRPCContext } from "@/server/api/trpc";
+import { appRouter } from "@/server/api/root_router";
+
+const handler = (req: NextRequest) =>
   fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
     router: appRouter,
-    createContext: async () => ({
-      ...(await createTRPCContext(req)),
-    }),
+    createContext: () => createTRPCContext({ req }),
     onError:
       process.env.NODE_ENV === "development"
         ? ({ path, error }) => {

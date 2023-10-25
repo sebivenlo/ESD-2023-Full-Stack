@@ -1,6 +1,7 @@
 "use client";
 
-import { RouterOutputs, api } from "@/utils/api";
+import { api } from "@/utils/trpc/client";
+import { RouterOutputs } from "@/utils/trpc/shared";
 import { useState } from "react";
 
 type AddTodoProps = {};

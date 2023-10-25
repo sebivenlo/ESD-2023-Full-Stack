@@ -1,5 +1,6 @@
-import { RouterOutputs, api } from "@/utils/api";
+import { api } from "@/utils/trpc/client";
 import { optimisticTodo } from "./add_todo";
+import { RouterOutputs } from "@/utils/trpc/shared";
 
 type TodoItemProps = {
   todo: RouterOutputs["todos"]["getTodos"][0];

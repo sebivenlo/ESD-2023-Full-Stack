@@ -1,6 +1,7 @@
-import Provider from "@/components/provider";
 import "@/styles/globals.css";
+import { TRPCReactProvider } from "@/utils/trpc/client";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
@@ -8,14 +9,12 @@ export const metadata: Metadata = {
   description: "this is a workshop for modern web development using Next.js",
 };
 
-export default function RootLayout({
-  children,
-}: PropsWithChildren) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <Provider>
-        <body>{children}</body>
-      </Provider>
+      <body>
+        <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
+      </body>
     </html>
   );
 }
