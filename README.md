@@ -8,6 +8,7 @@ This repository contains the starter code for the ESDE NextJS Workshop.
 2. Build and start the docker containers `npm run docker:up` or `docker-compose up -d`
 3. Apply all db schema changes `npm run docker:exec npm run db:push` or `docker-compose exec esde-workshop-next npm run db:push`
 4. (Optional) Attach to the container to see logs `npm run docker:logs` or `docker-compose logs -f esde-workshop-next`
+5. Open your browser on `http://localhost:3040`
 
 ## Attach to docker container using VSCode
 1. Install `Dev Containers` extension
