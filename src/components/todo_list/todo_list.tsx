@@ -9,12 +9,8 @@ type TodoProps = {
   todos: RouterOutputs["todos"]["getTodos"];
 };
 
-export default function TodoList({ todos }: TodoProps) {
-  const query = api.todos.getTodos.useQuery(undefined, {
-    initialData: todos,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+export default function TodoList({ todos: initialTodos }: TodoProps) {
+  const query = useGetTodos(initialTodos);
 
   if (query.isLoading) return <div>Loading...</div>;
 
@@ -31,4 +27,11 @@ export default function TodoList({ todos }: TodoProps) {
       </ul>
     </div>
   );
+}
+function useGetTodos(todos: TodoProps["todos"]) {
+  return api.todos.getTodos.useQuery(undefined, {
+    initialData: todos,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 }

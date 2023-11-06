@@ -39,13 +39,15 @@ export default function AddTodo({}: AddTodoProps) {
   );
 }
 
-export const optimisticTodo: RouterOutputs["todos"]["getTodos"][0] = {
-  id: "optimistic_id",
-  description: "",
+export const optimisticTodo: (
+  description: string,
+) => RouterOutputs["todos"]["getTodos"][0] = (description) => ({
+  id: Math.random().toString(),
+  description: description,
   createdAt: new Date(),
   updatedAt: new Date(),
   isComplete: false,
-};
+});
 
 function useTodoMutation() {
   const trpcContext = api.useContext();
@@ -53,24 +55,17 @@ function useTodoMutation() {
   const { mutate } = api.todos.addTodo.useMutation({
     // Runs on error
     onError: (error) => {
-      trpcContext.todos.getTodos.invalidate();
       alert(error.message);
     },
     // Runs on success or error
     onSettled() {
-      trpcContext.todos.getTodos.invalidate();
+      trpcContext.todos.getTodos.invalidate(undefined);
     },
     // Runs when the mutation is called
     onMutate(variables) {
       trpcContext.todos.getTodos.cancel();
       trpcContext.todos.getTodos.setData(undefined, (prev) => {
-        return [
-          {
-            ...optimisticTodo,
-            description: variables.description,
-          },
-          ...(prev ?? []),
-        ];
+        return [optimisticTodo(variables.description), ...(prev ?? [])];
       });
     },
   });

@@ -7,11 +7,46 @@ type TodoItemProps = {
 };
 
 export default function TodoItem({ todo }: TodoItemProps) {
+  const { mutate: updateMutation } = useUpdateMutation();
+
+  const { mutate: deleteMutation } = useDeleteMutation();
+
+  return (
+    <li className="flex items-center gap-2" key={todo.id}>
+      {/* Checkbox */}
+      <input
+        type="checkbox"
+        checked={todo.isComplete}
+        onChange={(e) => {
+          updateMutation({
+            id: todo.id,
+            isComplete: e.target.checked,
+          });
+        }}
+      />
+      <span className={`w-96 ${todo.isComplete ? "text-gray-400" : ""}`}>
+        {todo.description}
+      </span>
+      <button
+        className="rounded-md bg-gray-800 px-4 py-1 hover:bg-gray-700 disabled:opacity-50"
+        disabled={!Number.isNaN(Number(todo.id))}
+        onClick={() => {
+          deleteMutation({
+            id: todo.id,
+          });
+        }}
+      >
+        Delete
+      </button>
+    </li>
+  );
+}
+
+function useUpdateMutation() {
   const trpcContext = api.useContext();
 
-  const { mutate: updateMutation } = api.todos.updateTodo.useMutation({
+  return api.todos.updateTodo.useMutation({
     onError: (error) => {
-      trpcContext.todos.getTodos.invalidate();
       alert(error.message);
     },
     onSettled() {
@@ -33,10 +68,13 @@ export default function TodoItem({ todo }: TodoItemProps) {
       });
     },
   });
+}
 
-  const { mutate: deleteMutation } = api.todos.deleteTodo.useMutation({
+function useDeleteMutation() {
+  const trpcContext = api.useContext();
+
+  return api.todos.deleteTodo.useMutation({
     onError: (error) => {
-      trpcContext.todos.getTodos.invalidate();
       alert(error.message);
     },
     onSettled() {
@@ -55,34 +93,4 @@ export default function TodoItem({ todo }: TodoItemProps) {
       });
     },
   });
-
-  return (
-    <li className="flex items-center gap-2" key={todo.id}>
-      {/* Checkbox */}
-      <input
-        type="checkbox"
-        checked={todo.isComplete}
-        onChange={(e) => {
-          updateMutation({
-            id: todo.id,
-            isComplete: e.target.checked,
-          });
-        }}
-      />
-      <span className={`w-96 ${todo.isComplete ? "text-gray-400" : ""}`}>
-        {todo.description}
-      </span>
-      <button
-        className="rounded-md bg-gray-800 px-4 py-1 hover:bg-gray-700 disabled:opacity-50"
-        disabled={todo.id === optimisticTodo.id}
-        onClick={() => {
-          deleteMutation({
-            id: todo.id,
-          });
-        }}
-      >
-        Delete
-      </button>
-    </li>
-  );
 }
