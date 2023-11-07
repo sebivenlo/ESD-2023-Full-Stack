@@ -20,7 +20,7 @@ export default function TodoList({ todos: initialTodos }: TodoProps) {
     <div className="flex flex-col gap-4 p-8">
       <h1 className="text-3xl">Todo List</h1>
       <AddTodo />
-      <ul className="flex flex-col gap-1">
+      <ul className="flex flex-col gap-2">
         {query.data.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}

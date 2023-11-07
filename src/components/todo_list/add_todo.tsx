@@ -3,6 +3,7 @@
 import { api } from "@/utils/trpc/client";
 import { RouterOutputs } from "@/utils/trpc/shared";
 import { useState } from "react";
+import Button from "../button";
 
 type AddTodoProps = {};
 
@@ -21,28 +22,26 @@ export default function AddTodo({}: AddTodoProps) {
     <>
       <form className="flex gap-4" onSubmit={handleSubmit}>
         <input
-          className="rounded-md bg-gray-800 p-1"
+          className="bg-primary-background border-primary-foreground w-64 rounded-md border-2 p-1"
           key="description"
           type="text"
           placeholder="Todo..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <button
-          type="submit"
-          className="rounded-md bg-gray-800 px-4 py-1 hover:bg-gray-700"
-        >
+        <Button type="submit" className="px-4 py-1">
           Add
-        </button>
+        </Button>
       </form>
     </>
   );
 }
 
-export const optimisticTodo: (
+export const optimisticTodoPrefix = "optimisticId";
+const optimisticTodo: (
   description: string,
 ) => RouterOutputs["todos"]["getTodos"][0] = (description) => ({
-  id: Math.random().toString(),
+  id: `${optimisticTodoPrefix}-${Math.random().toString()}`,
   description: description,
   createdAt: new Date(),
   updatedAt: new Date(),

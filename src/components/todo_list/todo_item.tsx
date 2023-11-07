@@ -1,6 +1,7 @@
 import { api } from "@/utils/trpc/client";
-import { optimisticTodo } from "./add_todo";
 import { RouterOutputs } from "@/utils/trpc/shared";
+import { optimisticTodoPrefix } from "./add_todo";
+import Button from "../button";
 
 type TodoItemProps = {
   todo: RouterOutputs["todos"]["getTodos"][0];
@@ -27,9 +28,9 @@ export default function TodoItem({ todo }: TodoItemProps) {
       <span className={`w-96 ${todo.isComplete ? "text-gray-400" : ""}`}>
         {todo.description}
       </span>
-      <button
-        className="rounded-md bg-gray-800 px-4 py-1 hover:bg-gray-700 disabled:opacity-50"
-        disabled={!Number.isNaN(Number(todo.id))}
+      <Button
+        className="px-4 py-1 disabled:opacity-50"
+        disabled={todo.id.startsWith(optimisticTodoPrefix)}
         onClick={() => {
           deleteMutation({
             id: todo.id,
@@ -37,7 +38,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
         }}
       >
         Delete
-      </button>
+      </Button>
     </li>
   );
 }
