@@ -16,9 +16,15 @@ async function insertInitialData() {
       await db
         .insert(schema.todos)
         .values([
-          { description: "Learn about Drizzle ORM" },
-          { description: "Learn about TRPC" },
-          { description: "Build a fullstack app" },
+          {
+            description: "Learn about Drizzle ORM",
+            createdAt: new Date(2023, 11, 1),
+          },
+          { description: "Learn about TRPC", createdAt: new Date(2023, 11, 2) },
+          {
+            description: "Build a fullstack app",
+            createdAt: new Date(2023, 11, 3),
+          },
         ])
         .execute();
     }
