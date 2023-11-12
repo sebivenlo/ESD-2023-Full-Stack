@@ -15,3 +15,11 @@ This repository contains the starter code for the ESDE NextJS Workshop.
 2. Reload VSCode (CMD/CTRL + SHIFT + P -> `Developer: Reload Window`)
 3. CMD/CTRL + SHIFT + P -> `Dev Containers: Attach to Running Container...`
 4. Choose path `/usr/src/app` and press enter
+
+If you want to restart the container, run `docker-compose restart esde-workshop-next`
+
+## Useful links
+- [NextJS Documentation](https://nextjs.org/docs)
+- [tRPC Documentation](https://trpc.io/docs)
+- [Drizzle ORM Documentation](https://orm.drizzle.team/docs/overview)
+- [T3 Stack documetation](https://orm.drizzle.team/docs/overview) - Using a stack similar to this workshop. Check it out if you want to get started building a web app with these technologies.
