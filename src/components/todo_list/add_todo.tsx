@@ -10,19 +10,17 @@ type AddTodoProps = {};
 export default function AddTodo({}: AddTodoProps) {
   const [description, setDescription] = useState("");
 
-  const mutate = useTodoMutation();
+  const addTodoMutation = useTodoMutation();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    mutate({ description });
-    setDescription("");
+    // TODO: Add todo and reset form
   };
 
   return (
     <>
       <form className="flex gap-4" onSubmit={handleSubmit}>
         <input
-          className="bg-primary-background border-primary-foreground w-64 rounded-md border-2 p-1"
+          className="w-64 rounded-md border-2 border-primary-foreground bg-primary-background p-1"
           key="description"
           type="text"
           placeholder="Todo..."
@@ -49,25 +47,5 @@ const optimisticTodo: (
 });
 
 function useTodoMutation() {
-  const trpcContext = api.useContext();
-
-  const { mutate } = api.todos.addTodo.useMutation({
-    // Runs on error
-    onError: (error) => {
-      alert(error.message);
-    },
-    // Runs on success or error
-    onSettled() {
-      trpcContext.todos.getTodos.invalidate(undefined);
-    },
-    // Runs when the mutation is called
-    onMutate(variables) {
-      trpcContext.todos.getTodos.cancel();
-      trpcContext.todos.getTodos.setData(undefined, (prev) => {
-        return [optimisticTodo(variables.description), ...(prev ?? [])];
-      });
-    },
-  });
-
-  return mutate;
+  return null as any;
 }

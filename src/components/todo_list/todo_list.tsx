@@ -4,29 +4,23 @@ import { api } from "@/utils/trpc/client";
 import { RouterOutputs } from "@/utils/trpc/shared";
 import TodoItem from "./todo_item";
 
-type TodoProps = {
-  todos?: RouterOutputs["todos"]["getTodos"];
-};
+type TodoProps = {};
 
-export default function TodoList({ todos: initialTodos }: TodoProps) {
-  const query = useGetTodos(initialTodos);
-
-  if (query.isLoading) return <div>Loading...</div>;
-
-  if (query.isError) return <div>Error: {query.error.message}</div>;
+export default function TodoList({}: TodoProps) {
+  // TODO: Implement query function and handle loading and error states
+  const todosQuery = useTodosQuery();
 
   return (
     <>
       <ul className="flex flex-col gap-2">
-        {query.data.map((todo) => (
+        {todosQuery.data.map((todo) => (
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </>
   );
 }
-function useGetTodos(todos: TodoProps["todos"]) {
-  return api.todos.getTodos.useQuery(undefined, {
-    initialData: todos,
-  });
+
+function useTodosQuery() {
+  return null as any;
 }
