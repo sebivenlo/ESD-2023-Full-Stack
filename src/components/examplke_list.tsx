@@ -18,7 +18,12 @@ export default function ExamplesList({}: ExampleListProps) {
         </li>
         <li>
           <Link href={`/todos`} className="hover:text-gray-400">
-            Advanced TODO-App example, includes optimistic updates and SSR
+            Advanced TODO-App example with optimistic updates
+          </Link>
+        </li>
+        <li>
+          <Link href={`/todos-ssr`} className="hover:text-gray-400">
+            Advanced TODO-App example with SSR
           </Link>
         </li>
       </ul>

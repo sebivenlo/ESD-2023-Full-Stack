@@ -7,7 +7,7 @@ import { sleep } from "@/utils/utils";
 
 export const todoRouter = createTRPCRouter({
   getTodos: publicProcedure.query(async ({ ctx }) => {
-    await sleep(0);
+    await sleep(400);
     const todosResult = await ctx.db
       .select()
       .from(todos)

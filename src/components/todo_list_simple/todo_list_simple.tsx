@@ -1,7 +1,7 @@
 "use client";
 
-import AddTodo from "./add_todo";
-import TodoItem from "./todo_item";
+import AddTodoSimple from "./add_todo_simple";
+import TodoItemSimple from "./todo_item_simple";
 import { api } from "@/utils/trpc/client";
 import { RouterOutputs } from "@/utils/trpc/shared";
 
@@ -9,7 +9,7 @@ type TodoProps = {
   todos: RouterOutputs["todos"]["getTodos"];
 };
 
-export default function TodoList({ todos: initialTodos }: TodoProps) {
+export default function TodoListSimple({ todos: initialTodos }: TodoProps) {
   const query = useGetTodos(initialTodos);
 
   if (query.isLoading) return <div>Loading...</div>;
@@ -19,10 +19,10 @@ export default function TodoList({ todos: initialTodos }: TodoProps) {
   return (
     <div className="flex flex-col gap-4 p-8">
       <h1 className="text-3xl">Todo List</h1>
-      <AddTodo />
+      <AddTodoSimple />
       <ul className="flex flex-col gap-2">
         {query.data.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItemSimple key={todo.id} todo={todo} />
         ))}
       </ul>
     </div>

@@ -18,12 +18,12 @@ async function insertInitialData() {
         .values([
           {
             description: "Learn about Drizzle ORM",
-            createdAt: new Date(2023, 11, 1),
+            createdAt: new Date(2023, 0, 1),
           },
-          { description: "Learn about TRPC", createdAt: new Date(2023, 11, 2) },
+          { description: "Learn about TRPC", createdAt: new Date(2022, 0, 2) },
           {
             description: "Build a fullstack app",
-            createdAt: new Date(2023, 11, 3),
+            createdAt: new Date(2023, 0, 3),
           },
         ])
         .execute();

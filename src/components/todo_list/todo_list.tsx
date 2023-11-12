@@ -1,12 +1,11 @@
 "use client";
 
-import AddTodo from "@/components/todo_list/add_todo";
-import TodoItem from "./todo_item";
 import { api } from "@/utils/trpc/client";
 import { RouterOutputs } from "@/utils/trpc/shared";
+import TodoItem from "./todo_item";
 
 type TodoProps = {
-  todos: RouterOutputs["todos"]["getTodos"];
+  todos?: RouterOutputs["todos"]["getTodos"];
 };
 
 export default function TodoList({ todos: initialTodos }: TodoProps) {
@@ -29,7 +28,5 @@ export default function TodoList({ todos: initialTodos }: TodoProps) {
 function useGetTodos(todos: TodoProps["todos"]) {
   return api.todos.getTodos.useQuery(undefined, {
     initialData: todos,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
   });
 }

@@ -1,13 +1,13 @@
 import { api } from "@/utils/trpc/client";
 import { RouterOutputs } from "@/utils/trpc/shared";
-import { optimisticTodoPrefix } from "./add_todo";
+import { optimisticTodoPrefix } from "./add_todo_simple";
 import Button from "../button";
 
 type TodoItemProps = {
   todo: RouterOutputs["todos"]["getTodos"][0];
 };
 
-export default function TodoItem({ todo }: TodoItemProps) {
+export default function TodoItemSimple({ todo }: TodoItemProps) {
   const { mutate: updateMutation } = useUpdateMutation();
 
   const { mutate: deleteMutation } = useDeleteMutation();
